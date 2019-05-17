@@ -61,10 +61,10 @@ class ReportController extends Controller
 			}
 			return redirect()->route('reports.index');
 		}
-        else
-        {
-		    throw new Exception('Insufficient privileges');
-	    }
+		else
+		{
+			throw new Exception('Insufficient privileges');
+		}
 	}
 
 	public function show($id)
@@ -77,9 +77,9 @@ class ReportController extends Controller
 				return view('reports.show', compact(['report']));
 			}
 			else
-	        {
-			    throw new Exception('Insufficient privileges');
-		    }
+			{
+				throw new Exception('Insufficient privileges');
+			}
 		}
 		else
 		{
@@ -217,9 +217,9 @@ class ReportController extends Controller
 				readfile ('../pdfs/'.$report->id.'.pdf');
 			}
 			else
-	        {
-			    throw new Exception('Insufficient privileges');
-		    }
+			{
+				throw new Exception('Insufficient privileges');
+			}
 		}
 		else
 		{
@@ -272,9 +272,9 @@ class ReportController extends Controller
 				}
 			}
 			else
-	        {
-			    throw new Exception('Insufficient privileges');
-		    }
+			{
+				throw new Exception('Insufficient privileges');
+			}
 		}
 		else
 		{

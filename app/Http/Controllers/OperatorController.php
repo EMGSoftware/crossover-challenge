@@ -10,11 +10,11 @@ class OperatorController extends Controller
 	public function index()
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			$operators = User::orderBy('name', 'asc')->paginate(4);
 			return view('operators.index', compact(['operators']));
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -28,14 +28,14 @@ class OperatorController extends Controller
 	public function store(Request $request)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			$input = $request->all();
 			$input ['passcode'] = bcrypt ($input ['passcode']);
 			$input ['is_patient'] = 0;
 			User::create($input);
 			return redirect()->route('operators.index');
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -44,7 +44,7 @@ class OperatorController extends Controller
 	public function show($id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			if ($operator = User::find ($id))
 			{
 				return view('operators.show', compact(['operator']));
@@ -53,8 +53,8 @@ class OperatorController extends Controller
 			{
 				throw new Exception('Operator not found');
 			}
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -75,14 +75,14 @@ class OperatorController extends Controller
 	public function update(Request $request, $id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			$input = $request->all();
-	        $operator = User::find ($id);
-	        if (!empty($input ['passcode'])) $operator->password = bcrypt ($input ['passcode']);
-	        $operator->update ($input);
-	        return redirect()->route('operators.index');
-        }
-    	else
+			$operator = User::find ($id);
+			if (!empty($input ['passcode'])) $operator->password = bcrypt ($input ['passcode']);
+			$operator->update ($input);
+			return redirect()->route('operators.index');
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -91,26 +91,26 @@ class OperatorController extends Controller
 	public function destroy($id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			if ($operator = User::find($id))
 			{
 				// The special user Admin can't be deleted
-			    if ($operator->name != 'Admin')
-			    {
-				    $operator->delete();
-				    return redirect()->route('operators.index');
-			    }
-			    else
-    			{
-    				throw new Exception('Admin operator cannot be deleted');
-    			}
+				if ($operator->name != 'Admin')
+				{
+					$operator->delete();
+					return redirect()->route('operators.index');
+				}
+				else
+				{
+					throw new Exception('Admin operator cannot be deleted');
+				}
 			}
 			else
 			{
 				throw new Exception('Operator not found');
 			}
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}

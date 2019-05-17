@@ -10,12 +10,12 @@ class PatientController extends Controller
 	public function index()
 	{
 		if (!Auth::user()->is_patient)
-        {
-        	// Get just the patients
+		{
+			// Get just the patients
 			$patients = User::where('is_patient', 1)->paginate(4);
 			return view('patients.index', compact(['patients']));
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -29,14 +29,14 @@ class PatientController extends Controller
 	public function store(Request $request)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			$input = $request->all();
 			$input ['passcode'] = bcrypt ($input ['passcode']);
 			$input ['is_patient'] = 1;
 			User::create($input);
 			return redirect()->route('patients.index');
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -51,7 +51,7 @@ class PatientController extends Controller
 	public function show($id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			if ($patient = User::find ($id))
 			{
 				return view('patients.show', compact(['patient']));
@@ -60,8 +60,8 @@ class PatientController extends Controller
 			{
 				throw new Exception('Patient not found');
 			}
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -70,7 +70,7 @@ class PatientController extends Controller
 	public function edit($id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			if ($patient = User::find ($id))
 			{
 				return view('patients.edit', compact(['patient']));
@@ -79,8 +79,8 @@ class PatientController extends Controller
 			{
 				throw new Exception('Patient not found');
 			}
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -89,14 +89,14 @@ class PatientController extends Controller
 	public function update(Request $request, $id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			$input = $request->all();
-	        $patient = User::find ($id);
-	        if (!empty($input ['passcode'])) $patient->password = bcrypt ($input ['passcode']);
-	        $patient->update ($input);
-	        return redirect()->route('patients.index');
-        }
-    	else
+			$patient = User::find ($id);
+			if (!empty($input ['passcode'])) $patient->password = bcrypt ($input ['passcode']);
+			$patient->update ($input);
+			return redirect()->route('patients.index');
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
@@ -105,7 +105,7 @@ class PatientController extends Controller
 	public function destroy($id)
 	{
 		if (!Auth::user()->is_patient)
-        {
+		{
 			if ($patient = User::find($id))
 			{
 				$patient->delete();
@@ -115,8 +115,8 @@ class PatientController extends Controller
 			{
 				throw new Exception('Patient not found');
 			}
-        }
-    	else
+		}
+		else
 		{
 			throw new Exception('Insufficient privileges');
 		}
