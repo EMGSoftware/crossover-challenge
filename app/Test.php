@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
-    protected $fillable = [
-        'name', 'notes', 'enabled',
-    ];
-    
-    public function reports()
+	protected $fillable = [
+		'name', 'notes', 'enabled',
+	];
+	
+	public function reports()
 	{
 		return $this->belongsToMany('App\Report', 'report_tests', 'test_id', 'report_id')->withPivot('result');
 	}
@@ -21,7 +21,7 @@ class Test extends Model
 
 		Test::deleting(function($parent)
 		{
-		    $parent->reports()->detach();
+			$parent->reports()->detach();
 			$parent->save();
 		});
 	}
