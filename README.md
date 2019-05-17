@@ -6,22 +6,23 @@ As the tables are created using Laravel Migrations, the only task that need to b
 
 Deployment Steps
 ================
-Assuming there is available a LAMP (Linux, Apache, MySQL, PHP) environment correctly configured and running:
+Assuming there is a LAMP (Linux, Apache, MySQL, PHP) environment correctly configured and running:
+
 • Create a new directory for the project into the default document root for Apache (Usually "/var/www/html")
 • Copy the entire content of the directory "Source" of the "Software Engineer -PHP.zip" file to the new project directory.
 • Enable writing permissions in the [project directory]/storage directory: 
-  chmod -R o+w [project directory]/storage
+  `chmod -R o+w [project directory]/storage`
 • Create a new database in MySQL and take note of the name (you will need it in the next step).
-• Open the "[project directory]/.env" file with your preferred editor, and configure your GMail account credentials so that PHPMailer can send e-mails (Keys "MAIL_USERNAME" and "MAIL_PASSWORD"). Specify the MySQL username, password and DB name (Created in the previous step), modifying the keys "DB_USERNAME", "DB_PASSWORD" and "DB_DATABASE". Save the file after finished the modifications.
+• Open the `"[project directory]/.env"` file with your preferred editor, and configure your GMail account credentials so that PHPMailer can send e-mails (Keys "MAIL_USERNAME" and "MAIL_PASSWORD"). Specify the MySQL username, password and DB name (Created in the previous step), modifying the keys "DB_USERNAME", "DB_PASSWORD" and "DB_DATABASE". Save the file after finished the modifications.
 • Make sure Composer is installed. If not, install via "sudo apt-get update" (Valid for Ubuntu)
 • Execute "composer install" in order to install all the needed dependencies
 • Execute "php artisan cache:clear" and "php artisan route:cache" to avoid any conflict with the cached values.
-• Enable writing permissions in the "[project directory]/pdfs" directory: 
-  chmod -R o+w [project directory]/pdfs
+• Enable writing permissions in the `"[project directory]/pdfs"` directory: 
+  `chmod -R o+w [project directory]/pdfs`
 • Execute "php artisan migrate:refresh --seed" in order to create and populate with sample data all the tables needed.
 • If the deployment process went OK, you can access the system as:
-  https://[server ip or hostname]/[project directory]/public
-  Ex.: https://themechanic.solutions/lab/public/
+  `https://[server ip or hostname]/[project directory]/public`
+  Ex.: `https://themechanic.solutions/lab/public/`
 • You can access and begin to use the system with: Admin @ 123456 (User & Pass code)
 
 Note: Laravel's deployments can be tricky at times. If you encounter any problems during the deployment process, please contact me at emiliano.m.gonzalez@gmail.com and I will return as soon as possible. I deployed several projects, debugged and solved many problems, using both MySQL and PostgreSQL in both Linux and WindowsServer platforms. As such I'm sure I can help you to resolve any incident that may appear.
